@@ -8,6 +8,10 @@ spec:
   source:
     repoURL: https://github.com/riemervdzee/homelab.git
     targetRevision: HEAD
-    path: argocd
+    path: _bootstrap
   destination:
     server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
