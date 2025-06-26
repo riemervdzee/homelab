@@ -1,0 +1,4 @@
+- op: replace
+  path: /machine/kernel/options
+  value:
+    - pci=realloc
