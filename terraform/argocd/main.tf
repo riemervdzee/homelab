@@ -14,3 +14,7 @@ resource "helm_release" "argocd" {
   #   file("values/argocd-values.yaml")  # optional custom values
   # ]
 }
+
+resource "kubectl_manifest" "argocd-root-application" {
+  yaml_body = file("${path.module}/files/argocd-root-application.yaml")
+}

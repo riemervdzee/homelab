@@ -1,18 +1,18 @@
 terraform {
+  required_version = ">= 1.12"
+
   required_providers {
     talos = {
       source  = "siderolabs/talos"
-      version = "0.8.0"
+      version = "0.8.1"
     }
-    # kubernetes = {
-    #   source = "hashicorp/kubernetes"
-    # }
     helm = {
       source  = "hashicorp/helm"
       version = "2.17.0"
     }
-    # argocd = {
-    #   source = "argoproj-labs/argocd"
-    # }
+    kubectl = {
+      source  = "alekc/kubectl"
+      version = "2.1.3"
+    }
   }
 }

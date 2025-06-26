@@ -12,8 +12,6 @@ data "talos_machine_configuration" "worker" {
   cluster_endpoint = var.cluster_endpoint
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
-
-  config_patches = [file("${path.module}/patches/kernel-options.yaml")]
 }
 
 data "talos_client_configuration" "this" {
