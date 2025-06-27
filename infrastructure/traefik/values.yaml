@@ -5,3 +5,17 @@ providers:
     enabled: true
 gateway:
   namespacePolicy: All
+
+service:
+  type: NodePort
+
+ports:
+  web:
+    port: 8000
+    nodePort: 30080
+    exposedPort: 80
+
+  websecure:
+    port: 8443
+    nodePort: 30443
+    exposedPort: 443
