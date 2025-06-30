@@ -3,6 +3,7 @@ providers:
     enabled: false
   kubernetesGateway:
     enabled: true
+    endpoint: "*.homelab.riemer.dev"
 gateway:
   namespacePolicy: All
 
@@ -14,7 +15,6 @@ ports:
     port: 8000
     nodePort: 30080
     exposedPort: 80
-
   websecure:
     port: 8443
     nodePort: 30443

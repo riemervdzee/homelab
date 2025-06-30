@@ -15,7 +15,6 @@ spec:
     - repoURL: https://github.com/riemervdzee/homelab.git
       targetRevision: HEAD
       ref: values
-
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
@@ -23,3 +22,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - FailOnSharedResource=true
