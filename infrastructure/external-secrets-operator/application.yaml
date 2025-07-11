@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eso-helm
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: external-secrets
+      repoURL: https://charts.external-secrets.io
+      targetRevision: 0.18.2
+      helm:
+        valueFiles:
+          - '$values/infrastructure/external-secrets-operator/values.yaml'
+    - repoURL: https://github.com/riemervdzee/homelab.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: eso
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - FailOnSharedResource=true

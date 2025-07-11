@@ -23,5 +23,7 @@ module "talos_cluster" {
 }
 
 module "argocd" {
-  source = "./argocd"
+  source              = "./argocd"
+  scaleway_access_key = var.scaleway_access_key
+  scaleway_secret_key = var.scaleway_secret_key
 }
