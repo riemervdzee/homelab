@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/riemervdzee/homelab.git
     targetRevision: HEAD
-    path: _bootstrap
+    path: gitops/bootstrap
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:

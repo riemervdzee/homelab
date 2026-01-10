@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-helm
+  name: eso-helm
   namespace: argocd
 spec:
   project: default
   sources:
-    - chart: traefik
-      repoURL: ghcr.io/traefik/helm
-      targetRevision: 36.2.0
+    - chart: external-secrets
+      repoURL: https://charts.external-secrets.io
+      targetRevision: 0.18.2
       helm:
         valueFiles:
-          - '$values/infrastructure/traefik/values.yaml'
+          - '$values/gitops/infrastructure/external-secrets-operator/values.yaml'
     - repoURL: https://github.com/riemervdzee/homelab.git
       targetRevision: HEAD
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: eso
   syncPolicy:
     automated:
       prune: true

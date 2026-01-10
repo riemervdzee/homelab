@@ -1,7 +1,7 @@
 provider "talos" {}
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     # TODO we might need to add a sleep before trying? as the talos cluster isn't healthy right away
     host = module.talos_cluster.kubeconfig.host
 

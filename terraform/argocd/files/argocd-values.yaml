@@ -1,0 +1,8 @@
+## Argo CD configuration
+## Ref: https://github.com/argoproj/argo-cd
+##
+
+configs:
+  params:
+    # Disable https, we use mTLS on the cluster and are behind a reverse-proxy
+    "server.insecure": true

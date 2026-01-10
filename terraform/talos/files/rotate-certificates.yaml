@@ -1,3 +1,4 @@
+# Kubelet should rotate their certs and get them signed by the k8s CA
 machine:
   kubelet:
     extraArgs:

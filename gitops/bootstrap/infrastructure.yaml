@@ -11,7 +11,7 @@ spec:
         repoURL: https://github.com/riemervdzee/homelab.git
         revision: HEAD
         directories:
-          - path: infrastructure/*
+          - path: gitops/infrastructure/*
   template:
     metadata:
       name: '{{.path.basename}}'

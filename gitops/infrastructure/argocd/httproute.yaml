@@ -5,11 +5,16 @@ metadata:
   namespace: argocd
 spec:
   parentRefs:
-    - name: traefik-gateway
-      namespace: traefik
+    - name: main-gateway
+      namespace: kube-system
+      sectionName: https
   hostnames:
     - "argocd.homelab.riemer.dev"
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - name: argocd-server
           port: 80

@@ -1,0 +1,82 @@
+# CNI Configuration
+devices: end+
+ipam:
+  mode: kubernetes
+
+# Replace kube-proxy with Cilium
+kubeProxyReplacement: true
+k8sServiceHost: localhost
+k8sServicePort: 7445
+
+# Talos-specific settings
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+# Service Mesh Features
+envoy:
+  enabled: true
+
+# Allow to announce Cilium LBs on the network via ARP
+l2announcements:
+  enabled: true
+
+# Enable Gateway
+gatewayAPI:
+  enabled: true
+  enableAlpn: true
+  enableAppProtocol: true
+
+# Hubble for observability
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+    service:
+      type: ClusterIP
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: false
+
+# Prometheus metrics for Cilium operator
+operator:
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+
+# Enable Prometheus metrics for Cilium agent
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: false

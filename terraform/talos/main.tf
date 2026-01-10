@@ -5,6 +5,10 @@ data "talos_machine_configuration" "controlplane" {
   cluster_endpoint = var.cluster_endpoint
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
+
+  config_patches = [
+    file("${path.module}/files/disable-kube-proxy-and-cni.yaml"),
+  ]
 }
 
 data "talos_machine_configuration" "worker" {
@@ -12,6 +16,10 @@ data "talos_machine_configuration" "worker" {
   cluster_endpoint = var.cluster_endpoint
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
+
+  config_patches = [
+    file("${path.module}/files/disable-kube-proxy-and-cni.yaml"),
+  ]
 }
 
 data "talos_client_configuration" "this" {
@@ -26,10 +34,10 @@ resource "talos_machine_configuration_apply" "controlplane" {
   for_each                    = var.controlplane
   node                        = each.key
   config_patches = [
-    templatefile("${path.module}/templates/install-hostname.yaml.tmpl", {
+    templatefile("${path.module}/files/install-hostname.yaml.tmpl", {
       hostname = each.value.hostname
     }),
-    file("${path.module}/patches/rotate-certificates.yaml"),
+    file("${path.module}/files/rotate-certificates.yaml"),
   ]
 }
 
@@ -39,10 +47,10 @@ resource "talos_machine_configuration_apply" "worker" {
   for_each                    = var.workers
   node                        = each.key
   config_patches = [
-    templatefile("${path.module}/templates/install-hostname.yaml.tmpl", {
+    templatefile("${path.module}/files/install-hostname.yaml.tmpl", {
       hostname = each.value.hostname
     }),
-    file("${path.module}/patches/rotate-certificates.yaml"),
+    file("${path.module}/files/rotate-certificates.yaml"),
   ]
 }
 
