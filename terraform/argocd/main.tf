@@ -7,7 +7,7 @@ resource "helm_release" "argocd" {
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
-  version    = "9.2.3"
+  version    = "9.3.4"
 
   values = [
     file("${path.module}/files/argocd-values.yaml")  # optional custom values

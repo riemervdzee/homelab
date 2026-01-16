@@ -3,7 +3,7 @@
 
 # Download the file as dynamic-data
 resource "terraform_data" "cert_approver_fetch" {
-  input = "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/refs/tags/v0.10.1/deploy/standalone-install.yaml"
+  input = "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/refs/tags/v0.10.2/deploy/standalone-install.yaml"
 
   provisioner "local-exec" {
     command = "mkdir -p ${path.module}/.terraform-cache && curl -sSL ${self.input} -o ${path.module}/.terraform-cache/cert-approver.yaml"
