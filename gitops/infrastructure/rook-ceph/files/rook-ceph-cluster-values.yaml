@@ -1,6 +1,6 @@
 # Enable Ceph CLI tools
-#toolbox:
-#  enabled: true
+toolbox:
+  enabled: true
 
 # Enable Prom metrics
 monitoring:
