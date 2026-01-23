@@ -1,0 +1,19 @@
+csi:
+  imagePullPolicy: always
+  # Also install the CSIPlugin on the control-plane, allowing control-plane pods to attach PVCs
+  pluginTolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+      operator: Exists
+
+discover:
+  # Limit the rook-discover pods to the control-plane only, as these have the SSDs we want to expose
+  # TODO use dedicated label for decoupling?
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+      operator: Exists
+  nodeAffinity:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+      operator: Exists
