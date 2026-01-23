@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rook-helm
+  name: rook-ceph-cluster
   namespace: argocd
 spec:
   project: default
   sources:
-    - chart: rook-ceph
-      repoURL: https://charts.rook.io/release/
+    - chart: rook-ceph-cluster
+      repoURL: https://charts.rook.io/release
       targetRevision: v1.19.0
       helm:
         valueFiles:
-          - '$values/gitops/infrastructure/rook-ceph/files/rook-values.yaml'
+          - '$values/gitops/infrastructure/rook-ceph/files/rook-ceph-cluster-values.yaml'
     - repoURL: https://github.com/riemervdzee/homelab.git
       targetRevision: HEAD
       ref: values
@@ -23,5 +23,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - FailOnSharedResource=true
       - ServerSideApply=true

@@ -1,5 +1,5 @@
 csi:
-  imagePullPolicy: always
+  imagePullPolicy: Always
   # Also install the CSIPlugin on the control-plane, allowing control-plane pods to attach PVCs
   pluginTolerations:
     - effect: NoSchedule

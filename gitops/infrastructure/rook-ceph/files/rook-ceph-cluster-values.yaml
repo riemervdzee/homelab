@@ -1,0 +1,57 @@
+# Enable Ceph CLI tools
+#toolbox:
+#  enabled: true
+
+# Enable Prom metrics
+monitoring:
+  enabled: true
+
+cephImage:
+  imagePullPolicy: Always
+
+cephClusterSpec:
+  dataDirHostPath: /var/lib/rook
+
+  storage:
+    #
+    useAllNodes: true
+    useAllDevices: true
+
+cephBlockPools:
+  - name: ceph-blockpool
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1  # Note we don't replicate at all
+    storageClass:
+      enabled: true
+      name: ceph-block
+      isDefault: true
+      reclaimPolicy: Delete  # TODO Check?
+      allowVolumeExpansion: true  # TODO Check?
+      parameters:
+        csi.storage.k8s.io/fstype: ext4
+
+cephFileSystems:
+  - name: ceph-filesystem
+    spec:
+      metadataPool:
+        replicated:
+          size: 1  # Note we don't replicate at all
+      dataPools:
+        - name: data0
+          failureDomain: host
+          replicated:
+            size: 1
+      metadataServer:
+        activeCount: 1
+        activeStandby: false  # saves resources
+    storageClass:
+      enabled: true
+      name: ceph-filesystem
+      reclaimPolicy: Delete  # TODO Check?
+      allowVolumeExpansion: true  # TODO Check?
+      parameters:
+        csi.storage.k8s.io/fstype: ext4
+
+# TODO add object store?

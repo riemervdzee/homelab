@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-operator
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: rook-ceph
+      repoURL: https://charts.rook.io/release/
+      targetRevision: v1.19.0
+      helm:
+        valueFiles:
+          - '$values/gitops/infrastructure/rook-ceph/files/rook-operator-values.yaml'
+    - repoURL: https://github.com/riemervdzee/homelab.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rook-ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - FailOnSharedResource=true
+      - ServerSideApply=true
