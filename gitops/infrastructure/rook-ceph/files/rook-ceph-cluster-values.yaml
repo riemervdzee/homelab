@@ -21,9 +21,14 @@ cephClusterSpec:
 
   storage:
     #
-    useAllNodes: true
-    useAllDevices: true
+    useAllNodes: false
+    useAllDevices: false
     deviceFilter: sda
+    nodes:
+      # TODO hardcoded nodes...?
+      - name: "lab-master-1"
+      - name: "lab-master-2"
+      - name: "lab-master-3"
 
 cephBlockPools:
   - name: ceph-blockpool
