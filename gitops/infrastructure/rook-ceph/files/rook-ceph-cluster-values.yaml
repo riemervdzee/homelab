@@ -12,10 +12,18 @@ cephImage:
 cephClusterSpec:
   dataDirHostPath: /var/lib/rook
 
+  placement:
+    all:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+
   storage:
     #
     useAllNodes: true
     useAllDevices: true
+    deviceFilter: sda
 
 cephBlockPools:
   - name: ceph-blockpool
