@@ -23,12 +23,48 @@ cephClusterSpec:
     #
     useAllNodes: false
     useAllDevices: false
-    deviceFilter: sda
+    deviceFilter: sd
     nodes:
       # TODO hardcoded nodes...?
       - name: "lab-master-1"
       - name: "lab-master-2"
       - name: "lab-master-3"
+
+  resources:
+    mgr:
+      limits:
+        memory: "512Mi"
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+    mon:
+      limits:
+        memory: "512Mi"
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+    osd:
+      limits:
+        memory: "1Gi"
+      requests:
+        cpu: "500m"
+        memory: "512Mi"
+    prepareosd:
+      requests:
+        cpu: "500m"
+        memory: "50Mi"
+    mgr-sidecar:
+      limits:
+        memory: "100Mi"
+      requests:
+        cpu: "100m"
+        memory: "40Mi"
+    crashcollector:
+      limits:
+        memory: "60Mi"
+      requests:
+        cpu: "100m"
+        memory: "60Mi"
 
 cephBlockPools:
   - name: ceph-blockpool
