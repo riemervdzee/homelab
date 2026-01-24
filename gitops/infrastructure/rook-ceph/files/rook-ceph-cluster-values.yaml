@@ -13,7 +13,12 @@ cephClusterSpec:
   dataDirHostPath: /var/lib/rook
 
   placement:
-    all:
+    osd:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+    prepareosd:
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
@@ -22,13 +27,49 @@ cephClusterSpec:
   storage:
     #
     useAllNodes: false
-    useAllDevices: false
+    useAllDevices: true
     deviceFilter: sda
     nodes:
       # TODO hardcoded nodes...?
       - name: "lab-master-1"
       - name: "lab-master-2"
       - name: "lab-master-3"
+
+  resources:
+    mgr:
+      limits:
+        memory: "1024Mi"
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+    mon:
+      limits:
+        memory: "1024Mi"
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+    osd:
+      limits:
+        memory: "2Gi"
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+    prepareosd:
+      requests:
+        cpu: "500m"
+        memory: "50Mi"
+    mgr-sidecar:
+      limits:
+        memory: "100Mi"
+      requests:
+        cpu: "100m"
+        memory: "40Mi"
+    crashcollector:
+      limits:
+        memory: "60Mi"
+      requests:
+        cpu: "100m"
+        memory: "60Mi"
 
 cephBlockPools:
   - name: ceph-blockpool
