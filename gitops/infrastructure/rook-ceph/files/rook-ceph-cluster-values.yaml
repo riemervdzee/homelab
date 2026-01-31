@@ -8,6 +8,7 @@ monitoring:
 
 cephImage:
   imagePullPolicy: Always
+  tag: "v19.2.0"
 
 cephClusterSpec:
   dataDirHostPath: /var/lib/rook
