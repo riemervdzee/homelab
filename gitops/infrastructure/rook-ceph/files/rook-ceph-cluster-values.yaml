@@ -28,7 +28,7 @@ cephClusterSpec:
     #
     useAllNodes: false
     useAllDevices: true
-    deviceFilter: sda
+    deviceFilter: sd
     nodes:
       # TODO hardcoded nodes...?
       - name: "lab-master-1"
@@ -50,10 +50,10 @@ cephClusterSpec:
         memory: "512Mi"
     osd:
       limits:
-        memory: "2Gi"
+        memory: "2048Mi"
       requests:
         cpu: "500m"
-        memory: "2Gi"
+        memory: "2048Mi"
     prepareosd:
       requests:
         cpu: "500m"
@@ -64,6 +64,12 @@ cephClusterSpec:
       requests:
         cpu: "100m"
         memory: "40Mi"
+    log-collector:
+      limits:
+        memory: "512Mi"
+      requests:
+        cpu: "100m"
+        memory: "100Mi"
     crashcollector:
       limits:
         memory: "60Mi"
