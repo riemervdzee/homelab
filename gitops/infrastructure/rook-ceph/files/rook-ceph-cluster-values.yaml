@@ -27,7 +27,7 @@ cephClusterSpec:
   storage:
     #
     useAllNodes: false
-    useAllDevices: true
+    useAllDevices: false
     deviceFilter: sda
     nodes:
       # TODO hardcoded nodes...?
@@ -82,7 +82,7 @@ cephBlockPools:
     spec:
       failureDomain: host
       replicated:
-        size: 1  # Note we don't replicate at all
+        size: 2
     storageClass:
       enabled: true
       name: ceph-block
@@ -90,19 +90,28 @@ cephBlockPools:
       reclaimPolicy: Delete  # TODO Check?
       allowVolumeExpansion: true  # TODO Check?
       parameters:
-        csi.storage.k8s.io/fstype: ext4
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+        csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-publish-secret-namespace: "{{ .Release.Namespace }}"
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
+
 
 cephFileSystems:
   - name: ceph-filesystem
     spec:
       metadataPool:
         replicated:
-          size: 1  # Note we don't replicate at all
+          size: 2
       dataPools:
         - name: data0
           failureDomain: host
           replicated:
-            size: 1
+            size: 2
       metadataServer:
         activeCount: 1
         activeStandby: false  # saves resources
