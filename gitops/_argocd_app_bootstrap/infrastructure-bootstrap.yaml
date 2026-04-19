@@ -11,7 +11,9 @@ spec:
         repoURL: https://github.com/riemervdzee/homelab.git
         revision: HEAD
         directories:
-          - path: gitops/infrastructure/*
+          - path: gitops/*
+          - path: gitops/_*  # Exclude all directories starting with a _
+            exclude: true
   template:
     metadata:
       name: '{{.path.basename}}'
@@ -23,11 +25,9 @@ spec:
         path: '{{.path.path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.path.basename}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=true
           - FailOnSharedResource=true

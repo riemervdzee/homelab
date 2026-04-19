@@ -11,7 +11,7 @@ spec:
       targetRevision: 3.13.0
       helm:
         valueFiles:
-          - '$values/gitops/infrastructure/kube-system/files/metrics-server-values.yaml'
+          - '$values/gitops/kube-system/files/metrics-server-values.yaml'
     - repoURL: https://github.com/riemervdzee/homelab.git
       targetRevision: HEAD
       ref: values

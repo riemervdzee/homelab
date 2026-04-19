@@ -8,13 +8,13 @@ spec:
   source:
     repoURL: https://github.com/riemervdzee/homelab.git
     targetRevision: HEAD
-    path: gitops/bootstrap
+    path: gitops/_argocd_app_bootstrap
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
+      enabled: true
       prune: false
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
       - FailOnSharedResource=true

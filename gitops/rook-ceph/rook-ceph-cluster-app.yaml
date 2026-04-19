@@ -11,7 +11,7 @@ spec:
       targetRevision: v1.19.2
       helm:
         valueFiles:
-          - '$values/gitops/infrastructure/rook-ceph/files/rook-ceph-cluster-values.yaml'
+          - '$values/gitops/rook-ceph/files/rook-ceph-cluster-values.yaml'
     - repoURL: https://github.com/riemervdzee/homelab.git
       targetRevision: HEAD
       ref: values
@@ -21,8 +21,8 @@ spec:
   syncPolicy:
     automated:
       enabled: false
-      prune: true
-      selfHeal: true
+      prune: false
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
       - FailOnSharedResource=true
